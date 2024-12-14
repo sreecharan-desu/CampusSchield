@@ -14,6 +14,7 @@ export function useAuth() {
         password 
       });
       localStorage.setItem('token', res.data.token);
+      localStorage.setItem('userName', res.data.user.name);
       setUser(res.data.user);
       return res.data;
     } catch (error) {
@@ -39,6 +40,7 @@ export function useAuth() {
 
   const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('userName');
     setUser(null);
   };
 

@@ -19,12 +19,17 @@ export default function Home() {
   const { reports, loading, error, fetchReports } = useReports();
   const [filteredReports, setFilteredReports] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
-    if (user) {
+    console.log('Current user state:', user);
+  }, [user]);
+
+  useEffect(() => {
+    if (token) {
       fetchReports();
     }
-  }, [user]);
+  }, [token]);
 
   useEffect(() => {
     if (reports) {
@@ -37,8 +42,8 @@ export default function Home() {
     }
   }, [reports, searchTerm]);
 
-  // Guest Home Screen
-  if (!user) {
+  // Guest Home Screen - only show if no token exists
+  if (!token) {
     return (
       <MobileLayout header="Campus Safety">
         <motion.div 
@@ -55,7 +60,7 @@ export default function Home() {
             >
               <ShieldExclamationIcon className="h-24 w-24 mx-auto text-indigo-600 mb-6" />
             </motion.div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-3">Campus Shield</h1>
+            <h1 className="text-3xl font-bold text-gray-900 mb-3">Welcome to Campus Shield</h1>
             <p className="text-gray-600 mb-8">Your personal safety companion on campus</p>
           </div>
 
@@ -82,38 +87,19 @@ export default function Home() {
               </motion.div>
             </Link>
           </div>
-
-          <div className="mt-12 space-y-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Why Campus Shield?</h3>
-            <div className="grid grid-cols-2 gap-4">
-              {features.map((feature, index) => (
-                <motion.div
-                  key={feature.title}
-                  className="bg-white p-4 rounded-xl shadow-sm border border-gray-100"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <feature.icon className="h-8 w-8 text-indigo-600 mb-2" />
-                  <h4 className="font-medium text-gray-900">{feature.title}</h4>
-                  <p className="text-sm text-gray-600 mt-1">{feature.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
         </motion.div>
       </MobileLayout>
     );
   }
 
-  // Authenticated Home Screen
+  // Authenticated Home Screen - show if token exists
   return (
     <MobileLayout header="Home">
       <div className="pb-20">
-        {/* Welcome Section */}
+        {/* Welcome Section with username from user state */}
         <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6">
           <h1 className="text-2xl font-bold text-white mb-2">
-            Welcome back, {user.name}!
+            Welcome back, {user?.name || 'User'}!
           </h1>
           <p className="text-indigo-100">
             Stay safe and connected with campus security

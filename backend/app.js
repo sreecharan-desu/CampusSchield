@@ -13,7 +13,8 @@ const app = express();
 // CORS configuration
 const allowedOrigins = [
   'http://localhost:5174',
-  'https://your-frontend-domain.vercel.app' // Add your Vercel frontend domain
+  'http://localhost:3000',
+  'https://campus-schield.vercel.app'  // Add your Vercel frontend domain
 ];
 
 app.use(cors({
