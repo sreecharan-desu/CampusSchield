@@ -1,0 +1,16 @@
+{
+  "short_name": "Campus Shield",
+  "name": "Campus Shield - Safety App",
+  "icons": [
+    {
+      "src": "/shield-check.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#2563eb",
+  "background_color": "#ffffff"
+} 
