@@ -1,18 +1,26 @@
 const app = require('./app');
 const mongoose = require('mongoose');
+require('dotenv').config();
 
-// Hardcoded configuration - using MongoDB Atlas
-global.JWT_SECRET = 'your-super-secret-jwt-key-here';
-const PORT = 5000;
-const MONGODB_URI = 'mongodb+srv://srecharandesu:k2L5MzYBaojm1AM6@cluster0.a9berin.mongodb.net/campusscheild';
+// Configuration
+const PORT = process.env.PORT || 5000;
+const MONGODB_URI = process.env.MONGODB_URI;
+
+// MongoDB connection
 mongoose.connect(MONGODB_URI)
   .then(() => {
     console.log('Connected to MongoDB Atlas');
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
+    if (process.env.NODE_ENV !== 'production') {
+      // Only listen on a port in development
+      app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+      });
+    }
   })
   .catch((error) => {
     console.error('MongoDB connection error:', error);
     process.exit(1);
   });
+
+// Export the app for Vercel
+module.exports = app;

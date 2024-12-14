@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Set base URL for all requests
-axios.defaults.baseURL = 'http://localhost:5000';
+axios.defaults.baseURL = 'https://campus-schield.vercel.app/';
 
 // Add request interceptor to include token
 axios.interceptors.request.use(
