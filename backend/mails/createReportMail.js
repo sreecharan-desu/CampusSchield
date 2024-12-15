@@ -84,9 +84,9 @@ export const sendMailToUserOnCreatingReport = (user, report) => {
                 <p>If you have any concerns or need further assistance, please do not hesitate to reach out to us. You can contact us at [Contact Information]. We are here for you.</p>
 
                 <p>With Warm Regards,<br/>
-                [Your Title]<br/>
+                WE PROTECT YOU<br/>
                 CampusShield<br/>
-                <a href="https://campus-schield-7srm.vercel.app/" target="_blank">Visit Our Website</a></p>
+                <a href="https://campus-schield.vercel.app/" target="_blank">Visit Our Website</a></p>
             </body>
             </html>
         `
