@@ -1,6 +1,7 @@
 import express from 'express';import jwt from "jsonwebtoken";import cors from "cors";
 import {AuthMiddleware, checkIfUserPresent, isUserPresent} from '../middlewares/userMiddlewares.js';
 import { connectDB, Reports, User} from '../db/db.js';import bcrypt from "bcrypt";
+import { sendMailToUserOnCreatingReport } from '../mails/createReportMail.js';
 const app = express();
 
 app.use(express.json());
@@ -80,7 +81,6 @@ app.get('/api/reports',AuthMiddleware,async(req,res)=>{
 		reports,
 		success : true
 	})
-
 })
 
 
@@ -100,6 +100,10 @@ app.post('/api/reports',AuthMiddleware,async(req,res)=>{
 		location : location,
 		type : type		
 	})
+
+	const user = User.findOne({_id : userId});
+
+	await sendMailToUserOnCreatingReport(user,report);
 
 	res.json({
 		msg : `report with _id${report._id} created successfully.`,
