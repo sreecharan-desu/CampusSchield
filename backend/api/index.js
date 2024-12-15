@@ -4,8 +4,13 @@ import { connectDB, Reports, User} from '../db/db.js';import bcrypt from "bcrypt
 import { sendMailToUserOnCreatingReport } from '../mails/createReportMail.js';
 const app = express();
 
-app.use(cors());
-app.use(express.json());
+app.use(cors({
+	origin: '*',  // Allow all origins
+	methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],  // Allow all methods
+	allowedHeaders: '*',  // Allow all headers
+	credentials: true  // Allow credentials (like cookies)
+  }));
+  app.use(express.json());
 
 app.get('/',(req, res)=>{
 	res.send("Hi Sreecharan desu");
