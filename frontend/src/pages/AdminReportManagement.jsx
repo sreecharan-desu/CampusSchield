@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
-import { userState } from '../store/atoms';
 import axios from 'axios';
 import MobileLayout from '../components/MobileLayout';
-import { FunnelIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { BASE_URL } from '../BASE_URL';
 
 export default function AdminReportManagement() {
   const [reports, setReports] = useState([]);
@@ -19,7 +18,7 @@ export default function AdminReportManagement() {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`http://localhost:5000/api/admin/reports?status=${filter}`, {
+      const response = await axios.get(`${BASE_URL}/api/admin/reports?status=${filter}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setReports(response.data);
@@ -33,7 +32,7 @@ export default function AdminReportManagement() {
   const handleStatusUpdate = async (reportId, newStatus) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.patch(`http://localhost:5000/api/admin/reports/${reportId}/status`,
+      await axios.patch(`${BASE_URL}/api/admin/reports/${reportId}/status`,
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` }}
       );

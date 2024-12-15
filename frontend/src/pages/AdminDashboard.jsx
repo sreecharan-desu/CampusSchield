@@ -1,19 +1,15 @@
 import { useState, useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
-import { userState } from '../store/atoms';
 import axios from 'axios';
-import MobileLayout from '../components/MobileLayout';
 import { Link } from 'react-router-dom';
 import { 
-  ClipboardDocumentListIcon, 
   ArrowRightOnRectangleIcon,
+  ClipboardDocumentListIcon, 
   MapPinIcon,
-  UsersIcon, 
-  Cog6ToothIcon
 } from '@heroicons/react/24/outline';
+import { BASE_URL } from '../BASE_URL';
 
 export default function AdminDashboard() {
-  const user = useRecoilValue(userState);
+  // const user = useRecoilValue(userState);
   const [reports, setReports] = useState([]);
   const [stats, setStats] = useState({
     total: 0,
@@ -40,7 +36,7 @@ export default function AdminDashboard() {
   const fetchReports = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/admin/reports', {
+      const response = await axios.get(`${BASE_URL}/api/admin/reports`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setReports(response.data);
@@ -59,7 +55,7 @@ export default function AdminDashboard() {
   const updateReportStatus = async (reportId, status) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.patch(`http://localhost:5000/api/admin/reports/${reportId}/status`, 
+      await axios.patch(`${BASE_URL}/api/admin/reports/${reportId}/status`, 
         { status },
         { headers: { Authorization: `Bearer ${token}` }}
       );

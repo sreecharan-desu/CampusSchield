@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Alert from '../components/Alert';
 import MobileLayout from '../components/MobileLayout';
+import { BASE_URL } from '../BASE_URL';
 
 export default function Report() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
-  const [location, setLocation] = useState('');
   const [currentLocation, setCurrentLocation] = useState(null);
   const [detectingLocation, setDetectingLocation] = useState(false);
-
   const [formData, setFormData] = useState({
     type: '',
     description: '',
@@ -25,45 +24,69 @@ export default function Report() {
 
   const detectCurrentLocation = () => {
     setDetectingLocation(true);
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          try {
-            const { latitude, longitude } = position.coords;
-            // Use reverse geocoding to get address from coordinates
-            const response = await axios.get(
-              `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
-            );
-            
-            const address = response.data.display_name;
-            setCurrentLocation({
-              latitude,
-              longitude,
-              address
-            });
-            setFormData(prev => ({
-              ...prev,
-              location: address
-            }));
-          } catch (error) {
-            console.error('Error getting location:', error);
-            showAlert('Failed to detect location automatically', 'error');
-          } finally {
+  
+    // Check if the device is mobile
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+  
+    if (isMobile) {
+      // If it's a mobile device, ask for geolocation permission
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          async ({ coords: { latitude, longitude } }) => {
+            try {
+              const { data } = await axios.get(
+                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+              );
+              const address = data.display_name;
+              setCurrentLocation({ latitude, longitude, address });
+              setFormData(prev => ({ ...prev, location: address }));
+            } catch (error) {
+              console.error('Error fetching address from coordinates:', error);
+              showAlert('Failed to detect location automatically', 'error');
+            }
+          },
+          () => {
+            showAlert('Location permission denied', 'error');
             setDetectingLocation(false);
           }
-        },
-        (error) => {
-          console.error('Error getting location:', error);
-          showAlert('Failed to detect location. Please enter manually.', 'error');
-          setDetectingLocation(false);
-        }
-      );
+        );
+      } else {
+        showAlert('Geolocation not supported on mobile device', 'error');
+        setDetectingLocation(false);
+      }
     } else {
-      showAlert('Location detection not supported in your browser', 'error');
-      setDetectingLocation(false);
+      // For web browsers, use IP-based location detection
+      fetchLocationByIP();
     }
   };
 
+  const fetchLocationByIP = () => {
+    axios.get("https://ipinfo.io/8.8.8.8/json?token=e1404e937d4bfd")
+      .then(async (response) => {
+        const { loc } = response.data;
+        const [latitude, longitude] = loc.split(',');
+        try {
+          const { data } = await axios.get(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+          );
+          const address = data.display_name;
+          setCurrentLocation({ latitude, longitude, address });
+          setFormData(prev => ({ ...prev, location: address }));
+        } catch (error) {
+          console.error('Error fetching address from coordinates:', error);
+          showAlert('Failed to detect location based on IP', 'error');
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching IP-based location:', error);
+        showAlert('Failed to detect location based on IP', 'error');
+      })
+      .finally(() => {
+        setDetectingLocation(false);
+      });
+  };
+  
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -77,8 +100,19 @@ export default function Report() {
         } : null
       };
 
-      await axios.post('http://localhost:5000/api/reports', reportData);
-      showAlert('Report submitted successfully', 'success');
+      const res = await axios.post(
+        `${BASE_URL}/api/reports`,
+        reportData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          }
+        }
+      );
+      
+
+      showAlert(res.msg,res.success);
+
       setTimeout(() => {
         navigate('/');
       }, 2000);

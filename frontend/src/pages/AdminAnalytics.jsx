@@ -3,6 +3,7 @@ import axios from 'axios';
 import MobileLayout from '../components/MobileLayout';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
 import { Pie, Bar } from 'react-chartjs-2';
+import { BASE_URL } from '../BASE_URL';
 
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
@@ -22,7 +23,7 @@ export default function AdminAnalytics() {
   const fetchAnalytics = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/admin/analytics', {
+      const response = await axios.get(`${BASE_URL}/api/admin/analytics`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setAnalytics(response.data);

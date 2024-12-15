@@ -1,16 +1,11 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
 import { Link, useLocation } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { userState } from '../store/atoms';
 import { 
   HomeIcon, 
   PlusCircleIcon, 
   UserIcon,
-  ArrowLeftIcon,
-  ShieldExclamationIcon,
   PhoneIcon
 } from '@heroicons/react/24/outline';
-import Emergency from './Emergency';
 import { 
   HomeIcon as HomeIconSolid, 
   PlusCircleIcon as PlusCircleIconSolid, 
@@ -21,18 +16,15 @@ import {
 export default function MobileLayout({ 
   children, 
   header, 
-  showBackButton = false,
-  onBack 
 }) {
   const location = useLocation();
-  const user = useRecoilValue(userState);
   const path = location.pathname;
 
-  const handleEmergency = () => {
-    // You can customize this based on your needs
-    const emergencyNumber = '911'; // or your campus security number
-    window.location.href = `tel:${emergencyNumber}`;
-  };
+  // const handleEmergency = () => {
+  //   // You can customize this based on your needs
+  //   const emergencyNumber = '911'; // or your campus security number
+  //   window.location.href = `tel:${emergencyNumber}`;
+  // };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">

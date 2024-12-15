@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../context/AuthContext';
 import MobileLayout from '../components/MobileLayout';
 import Alert from '../components/Alert';
+import {  useSetRecoilState } from 'recoil';
+import { userState } from '../atoms/userAtom';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -13,7 +15,7 @@ export default function Login() {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-
+  const setUser = useSetRecoilState(userState);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -22,13 +24,13 @@ export default function Login() {
     console.log('Attempting login with:', formData);
     
     try {
-      const result = await login(formData);
+      const result = await login(formData.email,formData.password);
       console.log('Login result:', result);
-      
       if (result.success) {
+        setUser(result.user);
         navigate('/');
       } else {
-        setError(result.error);
+        setError(result.msg);
       }
     } catch (err) {
       console.error('Login error:', err);

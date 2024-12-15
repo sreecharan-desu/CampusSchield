@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { BASE_URL } from '../BASE_URL';
 
 export const useReports = () => {
   const [reports, setReports] = useState([]);
@@ -10,10 +11,10 @@ export const useReports = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/reports', {
+      const response = await axios.get(`${BASE_URL}/api/reports`, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      setReports(response.data);
+      setReports(response.data.reports);
       setError(null);
     } catch (err) {
       console.error('Failed to fetch reports:', err);

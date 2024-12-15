@@ -1,10 +1,5 @@
 import { atom } from 'recoil';
 
-export const userState = atom({
-  key: 'userState_unique',
-  default: null,
-});
-
 export const reportsState = atom({
   key: 'reportsState',
   default: [],

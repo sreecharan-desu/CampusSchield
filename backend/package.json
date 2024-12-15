@@ -1,8 +1,9 @@
 {
-	"name": "express",
+	"name": "backend",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.ts",
+	"type": "module",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "node api/index.ts"
@@ -11,8 +12,15 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"@vercel/postgres": "^0.7.2",
+		"@types/express": "^5.0.0",
+		"@vercel/postgres": "^0.10.0",
+		"bcrypt": "^5.1.1",
+		"cors": "^2.8.5",
 		"dotenv": "^16.4.1",
-		"express": "^4.18.2"
+		"express": "^4.21.2",
+		"jsonwebtoken": "^9.0.2",
+		"mongoose": "^8.9.0",
+		"nodemailer": "^6.9.16",
+		"uuid": "^11.0.3"
 	}
 }

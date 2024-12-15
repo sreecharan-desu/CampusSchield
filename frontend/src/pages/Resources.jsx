@@ -1,4 +1,3 @@
-import React from 'react';
 import MobileLayout from '../components/MobileLayout';
 import { PhoneIcon } from '@heroicons/react/24/solid';
 
@@ -18,24 +17,24 @@ export default function Resources() {
 
   return (
     <MobileLayout header="Emergency Resources">
-      <div className="p-4 space-y-6">
+      <div className="p-4 space-y-8">
         {/* Emergency Numbers Section */}
         <div>
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Emergency Numbers</h2>
-          <div className="space-y-3">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Emergency Numbers</h2>
+          <div className="space-y-4">
             {emergencyNumbers.map((contact) => (
-              <div key={contact.number} className="bg-white rounded-lg shadow p-4">
+              <div key={contact.number} className="bg-white rounded-lg shadow-lg p-5 transition duration-300 ease-in-out hover:shadow-xl">
                 <div className="flex justify-between items-center">
                   <div>
-                    <h3 className="font-medium text-gray-900">{contact.name}</h3>
-                    <p className="text-sm text-gray-500">{contact.description}</p>
+                    <h3 className="font-semibold text-gray-900 text-lg">{contact.name}</h3>
+                    <p className="text-sm text-gray-600 mt-1">{contact.description}</p>
                   </div>
                   <a
                     href={`tel:${contact.number}`}
-                    className="flex items-center space-x-2 bg-green-100 text-green-800 px-4 py-2 rounded-lg"
+                    className="flex items-center justify-center bg-green-500 text-white px-4 py-2 rounded-lg text-center w-32 mt-2 hover:bg-green-600 transition duration-200"
                   >
                     <PhoneIcon className="h-5 w-5" />
-                    <span>{contact.number}</span>
+                    <span className="ml-2 font-medium">{contact.number}</span>
                   </a>
                 </div>
               </div>
@@ -45,19 +44,19 @@ export default function Resources() {
 
         {/* Safety Tips Section */}
         <div>
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Safety Tips</h2>
-          <div className="bg-white rounded-lg shadow p-4 space-y-3">
-            <p>• Save emergency numbers on speed dial</p>
-            <p>• Use campus escort services at night</p>
-            <p>• Stay aware of your surroundings</p>
-            <p>• Keep your friends informed of your location</p>
-            <p>• Report suspicious activities immediately</p>
-            <p>• Download safety apps recommended by the institution</p>
-            <p>• Know the locations of emergency phones on campus</p>
-            <p>• Always carry your student ID</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Safety Tips</h2>
+          <div className="bg-white rounded-lg shadow-lg p-5 space-y-3">
+            <p className="text-gray-700">• Save emergency numbers on speed dial</p>
+            <p className="text-gray-700">• Use campus escort services at night</p>
+            <p className="text-gray-700">• Stay aware of your surroundings</p>
+            <p className="text-gray-700">• Keep your friends informed of your location</p>
+            <p className="text-gray-700">• Report suspicious activities immediately</p>
+            <p className="text-gray-700">• Download safety apps recommended by the institution</p>
+            <p className="text-gray-700">• Know the locations of emergency phones on campus</p>
+            <p className="text-gray-700">• Always carry your student ID</p>
           </div>
         </div>
       </div>
     </MobileLayout>
   );
-} 
+}

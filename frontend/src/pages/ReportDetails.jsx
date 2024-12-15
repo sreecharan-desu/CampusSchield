@@ -1,15 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { userState } from '../store/atoms';
 import axios from 'axios';
 import MobileLayout from '../components/MobileLayout';
 import { ClockIcon, MapPinIcon, BellAlertIcon } from '@heroicons/react/24/outline';
+import { BASE_URL } from '../BASE_URL';
 
 export default function ReportDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const user = useRecoilValue(userState);
+  // const user = useRecoilValue(userState);
   const [report, setReport] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -17,7 +16,7 @@ export default function ReportDetails() {
     const fetchReport = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`http://localhost:5000/api/reports/${id}`, {
+        const response = await axios.get(`${BASE_URL}/api/reports/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setReport(response.data);

@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { userState } from '../store/atoms';
+import { userState } from '../atoms/userAtom';
 import axios from 'axios';
 import MobileLayout from '../components/MobileLayout';
 import Input from '../components/Input';
+import { BASE_URL } from '../BASE_URL';
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('');
@@ -22,7 +23,7 @@ export default function AdminLogin() {
       };
 
       if (email === adminCredentials.email && password === adminCredentials.password) {
-        const res = await axios.post('http://localhost:5000/api/admin/login', {
+        const res = await axios.post(`${BASE_URL}/api/admin/login`, {
           email,
           password
         });

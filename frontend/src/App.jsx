@@ -12,7 +12,7 @@ import Report from './pages/Report';
 import ReportDetails from './pages/ReportDetails';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminLogin from './pages/AdminLogin';
-import { AuthProvider } from './contexts/AuthContext';
+import { AuthProvider } from './context/AuthContext';
 
 function AppLoader() {
   return (

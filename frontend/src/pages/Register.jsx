@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../context/AuthContext';
 import MobileLayout from '../components/MobileLayout';
 import Input from '../components/Input';
 
@@ -31,13 +31,17 @@ export default function Register() {
     setError('');
     setMessage('');
     setLoading(true);
-
     try {
       const response = await register(formData);
-      setMessage(response.message || 'Registration successful!');
-      setTimeout(() => {
-        navigate('/');
-      }, 1500);
+      console.log(response)
+      if(response.success){
+        setMessage(response.message.toString());
+        setTimeout(() => {
+          navigate('/');
+        }, 1500);
+      }else{
+        setError(response.message.toString());
+      }
     } catch (err) {
       setError(err.error || 'Registration failed');
       console.error('Registration error:', err);
