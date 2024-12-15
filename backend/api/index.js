@@ -95,7 +95,7 @@ app.post('/api/reports',AuthMiddleware,async(req,res)=>{
     const token = authorization.split(" ")[1];
     const userId = await jwt.verify(token,'cde52dae09247f763133');
 
-	const report = Reports.create({
+	const report = await Reports.create({
 		userId : userId,
 		coordinates : {
 			latitude : coordinates.latitude,
@@ -106,7 +106,7 @@ app.post('/api/reports',AuthMiddleware,async(req,res)=>{
 		type : type		
 	})
 
-	const user = User.findOne({_id : userId});
+	const user = await User.findOne({_id : userId});
 
 	await sendMailToUserOnCreatingReport(user,report);
 

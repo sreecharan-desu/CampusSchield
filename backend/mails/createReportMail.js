@@ -1,6 +1,7 @@
-export const sendMailToUserOnCreatingReport = (report, user) => {
-    var nodemailer = require('nodemailer');
+import nodemailer from "nodemailer";
 
+export const sendMailToUserOnCreatingReport = (user, report) => {
+    console.log(user);
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -66,7 +67,7 @@ export const sendMailToUserOnCreatingReport = (report, user) => {
                         <li><span class="bold">Initial Review Completed:</span> ✔</li>
                         <li><span class="bold">Witness Statements Collected:</span> ✔</li>
                         <li><span class="bold">Investigator Assigned:</span> ✔</li>
-                        <li><span class="bold">Next Steps:</span> [Brief overview of the next stages, e.g., further investigation, interviews, etc.]</li>
+                        <li><span class="bold">Next Steps:</span> We will update you each step we take on this to you./li>
                     </ul>
                 </div>
 
