@@ -101,7 +101,7 @@ export default function Report() {
       };
 
       const res = await axios.post(
-        `${BASE_URL}/api/reports`,
+        `${BASE_URL}api/reports`,
         reportData,
         {
           headers: {

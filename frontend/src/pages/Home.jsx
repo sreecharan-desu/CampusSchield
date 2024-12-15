@@ -18,7 +18,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchUser = async (token) => {
-      const res = await axios.get(`${BASE_URL}/api/auth/verify`, {
+      const res = await axios.get(`${BASE_URL}api/auth/verify`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       try {

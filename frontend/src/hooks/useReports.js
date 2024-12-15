@@ -11,7 +11,7 @@ export const useReports = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`${BASE_URL}/api/reports`, {
+      const response = await axios.get(`${BASE_URL}api/reports`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setReports(response.data.reports);

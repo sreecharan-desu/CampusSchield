@@ -36,7 +36,7 @@ export default function AdminDashboard() {
   const fetchReports = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`${BASE_URL}/api/admin/reports`, {
+      const response = await axios.get(`${BASE_URL}api/admin/reports`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setReports(response.data);
@@ -55,7 +55,7 @@ export default function AdminDashboard() {
   const updateReportStatus = async (reportId, status) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.patch(`${BASE_URL}/api/admin/reports/${reportId}/status`, 
+      await axios.patch(`${BASE_URL}api/admin/reports/${reportId}/status`, 
         { status },
         { headers: { Authorization: `Bearer ${token}` }}
       );

@@ -23,7 +23,7 @@ export default function AdminAnalytics() {
   const fetchAnalytics = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`${BASE_URL}/api/admin/analytics`, {
+      const response = await axios.get(`${BASE_URL}api/admin/analytics`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setAnalytics(response.data);

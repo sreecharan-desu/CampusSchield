@@ -10,7 +10,7 @@ export function useAuth() {
   const login = async (email, password) => {
     setLoading(true);
     try {
-      const res = await axios.post(`${BASE_URL}/api/auth/login`, { 
+      const res = await axios.post(`${BASE_URL}api/auth/login`, { 
         email, 
         password 
       });
@@ -28,7 +28,7 @@ export function useAuth() {
   const register = async (userData) => {
     setLoading(true);
     try {
-      const res = await axios.post(`${BASE_URL}/api/auth/register`, userData);
+      const res = await axios.post(`${BASE_URL}api/auth/register`, userData);
       localStorage.setItem('token', res.data.token);
       setUser(res.data.user);
       return res.data;
@@ -53,7 +53,7 @@ export function useAuth() {
     }
 
     try {
-      const res = await axios.get(`${BASE_URL}/api/auth/verify`, {
+      const res = await axios.get(`${BASE_URL}api/auth/verify`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setUser(res.data.user);

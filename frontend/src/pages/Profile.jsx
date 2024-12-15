@@ -24,7 +24,7 @@ export default function Profile() {
 
   const fetchUserDetails = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/api/auth/verify`, {
+      const res = await axios.get(`${BASE_URL}api/auth/verify`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       setUser(res.data.user);

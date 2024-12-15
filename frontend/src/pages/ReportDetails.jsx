@@ -16,7 +16,7 @@ export default function ReportDetails() {
     const fetchReport = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`${BASE_URL}/api/reports/${id}`, {
+        const response = await axios.get(`${BASE_URL}api/reports/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setReport(response.data);

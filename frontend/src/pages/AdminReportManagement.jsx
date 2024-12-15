@@ -18,7 +18,7 @@ export default function AdminReportManagement() {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`${BASE_URL}/api/admin/reports?status=${filter}`, {
+      const response = await axios.get(`${BASE_URL}api/admin/reports?status=${filter}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setReports(response.data);
@@ -32,7 +32,7 @@ export default function AdminReportManagement() {
   const handleStatusUpdate = async (reportId, newStatus) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.patch(`${BASE_URL}/api/admin/reports/${reportId}/status`,
+      await axios.patch(`${BASE_URL}api/admin/reports/${reportId}/status`,
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` }}
       );

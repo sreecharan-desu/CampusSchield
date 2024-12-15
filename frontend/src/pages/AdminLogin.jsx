@@ -23,7 +23,7 @@ export default function AdminLogin() {
       };
 
       if (email === adminCredentials.email && password === adminCredentials.password) {
-        const res = await axios.post(`${BASE_URL}/api/admin/login`, {
+        const res = await axios.post(`${BASE_URL}api/admin/login`, {
           email,
           password
         });
