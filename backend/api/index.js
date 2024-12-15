@@ -1,15 +1,11 @@
 const express = require('express');
-const cors = require('cors');
-
 const app = express();
-
-app.use(cors());
 app.use(express.json());
 
-app.get('/',(req,res)=>{
-    res.send("hello world");
-})
+app.get('/', function (req, res) {
+	res.send("Hi");
+});
 
-app.listen(5000,(req,res)=>{
-    console.log("Listening...")
-})
+app.listen(3000, () => console.log('Server ready on port 3000.'));
+
+module.exports = app;
