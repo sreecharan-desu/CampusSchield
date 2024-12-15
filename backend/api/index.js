@@ -4,8 +4,8 @@ import { connectDB, Reports, User} from '../db/db.js';import bcrypt from "bcrypt
 import { sendMailToUserOnCreatingReport } from '../mails/createReportMail.js';
 const app = express();
 
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
 app.get('/',(req, res)=>{
 	res.send("Hi Sreecharan desu");
