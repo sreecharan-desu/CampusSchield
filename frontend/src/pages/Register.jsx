@@ -38,7 +38,7 @@ export default function Register() {
         setMessage(response.message.toString());
         setTimeout(() => {
           navigate('/');
-        }, 1500);
+        }, 1000);
       }else{
         setError(response.message.toString());
       }
