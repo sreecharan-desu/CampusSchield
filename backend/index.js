@@ -12,7 +12,8 @@ app.get('/',(req,res)=>{
         "Hello from backend"
     )
 })
-app.use("/api/v1/",mainRouter);
+// app.use("/api/v1/",mainRouter);
+
 app.listen(5000,(req,res)=>{
     console.log("Listening...")
 })
