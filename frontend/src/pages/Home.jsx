@@ -209,11 +209,14 @@ export default function Home() {
         <span>{new Date(report.createdAt).toLocaleDateString()}</span>
       </div>
 
+
+
+      {
+        report.coordinates ? <>
       <div className="mt-2 text-xs text-gray-400">
         <span className="mr-2">Coordinates:</span>
         <span>{`Lat: ${report.coordinates.latitude}, Lng: ${report.coordinates.longitude}`}</span>
       </div>
-
       <a
         href={`https://www.google.com/maps?q=${report.coordinates.latitude},${report.coordinates.longitude}`}
         target="_blank"
@@ -223,6 +226,12 @@ export default function Home() {
         View on Map
       </a>
 
+        
+        </> : <>
+        
+        
+        </>
+      }
       <div className="flex flex-col mt-3 text-xs text-gray-500">
         <span className="truncate" title={report.location}>
           Updates regarding your report status will be sent to

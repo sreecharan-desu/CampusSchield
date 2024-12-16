@@ -36,8 +36,10 @@ const UserSchema = mongoose.Schema({
 const ReportsSchema = mongoose.Schema({
     userId: String,
     coordinates: {
-        latitude: { type: Number, required: true },
-        longitude: { type: Number, required: true },
+        latitude: { type: Number, required: false },
+        longitude: { type: Number, required: false },
+        type : Object,
+        required : false
     },   
     description : String,
     location : String,

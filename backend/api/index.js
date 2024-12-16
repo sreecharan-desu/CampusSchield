@@ -95,25 +95,43 @@ app.post('/api/reports',AuthMiddleware,async(req,res)=>{
     const token = authorization.split(" ")[1];
     const userId = await jwt.verify(token,'cde52dae09247f763133');
 
-	const report = await Reports.create({
-		userId : userId,
-		coordinates : {
-			latitude : coordinates.latitude,
-			longitude : coordinates.longitude
-		},
-		description : description,
-		location : location,
-		type : type		
-	})
+	if(coordinates == null ){
+		const report = await Reports.create({
+			userId : userId,
+			description : description,
+			location : location,
+			type : type		
+		})
 
-	const user = await User.findOne({_id : userId});
+		const user = await User.findOne({_id : userId});
 
-	await sendMailToUserOnCreatingReport(user,report);
+		await sendMailToUserOnCreatingReport(user,report);
+	
+		res.json({
+			msg : `report with _id${report._id} created successfully.`,
+			success : true
+		})
+	}else{
+		const report = await Reports.create({
+			userId : userId,
+			coordinates : {
+				latitude : coordinates.latitude,
+				longitude : coordinates.longitude
+			},
+			description : description,
+			location : location,
+			type : type		
+		})
 
-	res.json({
-		msg : `report with _id${report._id} created successfully.`,
-		success : true
-	})
+		const user = await User.findOne({_id : userId});
+
+		await sendMailToUserOnCreatingReport(user,report);
+	
+		res.json({
+			msg : `report with _id${report._id} created successfully.`,
+			success : true
+		})
+	}
 })
 
 connectDB();
